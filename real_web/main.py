@@ -8,6 +8,14 @@ soup = BeautifulSoup(html_text,'lxml')
 
 book_listings = soup.find_all("article", class_="product_pod")
 
+
 for book in book_listings:
-    book_title = (book.h3).a.text
-    print(book_title)
+    book_titles = (book.h3).a.text
+    book_prices = book.find("p",class_="price_color").text[1:]
+
+# print books under £20
+    if float(book_prices[1:]) < 20:
+        print(f'''
+        Book title: {book_titles}.
+        Book price: {book_prices}
+    ''')
